@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
 const User = require('../models/user.model.js');
+const {itemScoreBoard} = require('../utils/data.js');
+const {authUser} = require('../middleware/auth.js')
 
 router.get('/test', (req, res) => {
 	res.send('bruh');
@@ -40,5 +42,15 @@ router.post('/login', async function (req, res) {
 		}
 	});
 });
+
+router.post('/new-entry', authUser, async (req,res) => {
+	const {activityId,units} = req.body;
+ 	const activity = itemScoreBoard[activityId];
+	User.updateOne({_id: req.user.id}, {$push: {entries: {
+       activityId,
+	   totalPoints: units * points,
+	   units
+	}}})
+} )
 
 module.exports = router;

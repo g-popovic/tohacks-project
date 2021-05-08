@@ -4,16 +4,17 @@ const rawData = [
 	['Recycle can', '', 0.5],
 	['Ride bike', 'km', 0.2],
 	['Throw out garbage', 'kg', 1],
-	['Plant a tree', '', 2],
-	['Buy better bulbs', '', 1],
-	['Pull the plug(s)', '', 0.3]
+	["Plant a tree", " ", 2],
+	["Buy better bulbs"," ", 1],
+	["Pull the plug(s)"," ", 0.3],
+
 ];
 
-const itemScoreBoard = rawData.map((el, index) => ({
-	id: index,
+const itemScoreBoard = rawData.map((el) => ({
 	name: el[0],
 	unit: el[1],
-	points: el[2]
+	points: el[2],
+
 }));
 
 const countries = [
