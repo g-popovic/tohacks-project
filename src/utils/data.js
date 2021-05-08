@@ -4,20 +4,18 @@ const rawData = [
 	['Recycle can', '', 0.5],
 	['Ride bike', 'km', 0.2],
 	['Throw out garbage', 'kg', 1],
-	["Plant a tree", " ", 2],
-	["Buy better bulbs"," ", 1],
-	["Pull the plug(s)"," ", 0.3],
-
+	['Plant a tree', ' ', 2],
+	['Buy better bulbs', ' ', 1],
+	['Pull the plug(s)', ' ', 0.3]
 ];
 
-const itemScoreBoard = rawData.map((el) => ({
+const itemScoreBoard = rawData.map(el => ({
 	name: el[0],
 	unit: el[1],
-	points: el[2],
-
+	points: el[2]
 }));
 
-export const countries = [
+const countries = [
 	{ name: 'Afghanistan', code: 'AF' },
 	{ name: 'Åland Islands', code: 'AX' },
 	{ name: 'Albania', code: 'AL' },
@@ -262,3 +260,5 @@ export const countries = [
 	{ name: 'Zambia', code: 'ZM' },
 	{ name: 'Zimbabwe', code: 'ZW' }
 ];
+
+module.exports = { countries, itemScoreBoard };

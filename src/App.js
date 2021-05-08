@@ -8,7 +8,7 @@ function App() {
 	const [isAuthed, setIsAuthed] = useState('loading');
 
 	return isAuthed === 'loading' ? (
-		<div class='spinner-border' role='status'>
+		<div class='spinner-borde0r total-center' role='status'>
 			<span class='visually-hidden'>Loading...</span>
 		</div>
 	) : !isAuthed ? (
