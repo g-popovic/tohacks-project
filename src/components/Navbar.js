@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import axiosApp from '../axiosApp';
-const axiosApp = { post: () => {} };
+import axiosApp from '../utils/axiosApp';
 
 export default function Navbar(props) {
 	async function logout() {
-		await axiosApp.post('/auth/logout');
+		await axiosApp.post('/logout');
 		window.location.reload();
 	}
 

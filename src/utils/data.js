@@ -162,6 +162,7 @@ const countries = [
 	{ name: 'Moldova, Republic of', code: 'MD' },
 	{ name: 'Monaco', code: 'MC' },
 	{ name: 'Mongolia', code: 'MN' },
+	{ name: 'Montenegro', code: 'ME' },
 	{ name: 'Montserrat', code: 'MS' },
 	{ name: 'Morocco', code: 'MA' },
 	{ name: 'Mozambique', code: 'MZ' },

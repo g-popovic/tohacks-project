@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
 const User = require('../models/user.model.js');
-const {itemScoreBoard} = require('../utils/data.js');
-const {authUser} = require('../middleware/auth.js')
+const { itemScoreBoard } = require('../utils/data.js');
+const { authUser } = require('../middleware/auth.js');
 
 router.get('/test', (req, res) => {
 	res.send('bruh');
@@ -10,16 +10,17 @@ router.get('/test', (req, res) => {
 
 router.post('/register', async function (req, res) {
 	try {
-		const { email, password, city } = req.body;
+		const { email, password, country } = req.body;
 		const newuser = await new User({
 			email,
 			password: await bcrypt.hash(password, 10),
-			city
+			country
 		}).save();
 
 		req.session.user = { id: newuser._id };
 		res.sendStatus(200);
 	} catch (err) {
+		console.error(err);
 		res.sendStatus(500);
 	}
 });
@@ -43,14 +44,34 @@ router.post('/login', async function (req, res) {
 	});
 });
 
-router.post('/new-entry', authUser, async (req,res) => {
-	const {activityId,units} = req.body;
- 	const activity = itemScoreBoard[activityId];
-	User.updateOne({_id: req.user.id}, {$push: {entries: {
-       activityId,
-	   totalPoints: units * points,
-	   units
-	}}})
-} )
+router.post('/new-entry', authUser, async (req, res) => {
+	const { activityId, units } = req.body;
+	const activity = itemScoreBoard[activityId];
+	User.updateOne(
+		{ _id: req.user.id },
+		{
+			$push: {
+				entries: {
+					activityId,
+					totalPoints: units * points,
+					units
+				}
+			}
+		}
+	);
+});
+
+router.get('/status', (req, res) => {
+	if (req.session.user && req.session.user.id) {
+		res.json({ isAuthed: true });
+	} else {
+		res.json({ isAuthed: false });
+	}
+});
+
+router.post('/logout', (req, res) => {
+	req.session.user = null;
+	res.sendStauts(200);
+});
 
 module.exports = router;
