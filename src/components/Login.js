@@ -13,7 +13,7 @@ export default function Login() {
 			await axiosApp.post('/login', { email, password });
 			window.location.reload();
 		} catch (err) {
-			alert(err.response ? err.response.message : 'Unexpected error');
+			alert(err.response ? err.response.data : 'Unexpected error');
 		}
 	}
 
