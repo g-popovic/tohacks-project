@@ -11,14 +11,20 @@ router.get('/test', (req, res) => {
 module.exports = router;
 
 router.post("/register", async  function(req,res){
-	const {email,password,city} = req.body;
-	const newuser = new User(
-	 {
-		email,
-		password: await bcrypt.hash(password, 10,)  ,
-        city
+	try {
+		const {email,password,city} = req.body;
+		const newuser = await new User(
+		 {
+			email,
+			password: await bcrypt.hash(password, 10,)  ,
+	        city
+		}).save();
 
-	})
+		req.session.user = {id: newuser._id};
+		res.sendStatus(200)
+	} catch (err) {
+		res.sendStatus(500)
+	}
 });
 
 
