@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const routes = require('./routes');
 const session = require('express-session');
+const mongoose = require('mongoose');
 const app = express();
 
 app.use(express.json());
@@ -17,6 +18,16 @@ app.use(
 		}
 	})
 );
+
+mongoose.set('runValidators', true);
+mongoose.connect(process.env.MONGO_URI, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useCreateIndex: true,
+	useFindAndModify: false
+});
+mongoose.connection.on('error', err => console.error('MongoDB connection error:', err));
+mongoose.connection.on('open', () => console.log('Connected to MongoDB Atlas'));
 
 app.use(routes);
 
