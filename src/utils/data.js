@@ -8,7 +8,8 @@ const rawData = [
 	['Throw out garbage', '', 1]
 ];
 
-const itemScoreBoard = rawData.map(el => ({
+const itemScoreBoard = rawData.map((el, index) => ({
+	id: index,
 	name: el[0],
 	unit: el[1],
 	points: el[2]
