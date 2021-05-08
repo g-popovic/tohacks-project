@@ -9,14 +9,14 @@ const rawData = [
 	['Pull the plug(s)', '', 0.3]
 ];
 
-const itemScoreBoard = rawData.map((el, index) => ({
+export const itemScoreBoard = rawData.map((el, index) => ({
 	id: index,
 	name: el[0],
 	unit: el[1],
 	points: el[2]
 }));
 
-const countries = [
+export const countries = [
 	{ name: 'Afghanistan', code: 'AF' },
 	{ name: 'Åland Islands', code: 'AX' },
 	{ name: 'Albania', code: 'AL' },
@@ -261,5 +261,3 @@ const countries = [
 	{ name: 'Zambia', code: 'ZM' },
 	{ name: 'Zimbabwe', code: 'ZW' }
 ];
-
-export { countries, itemScoreBoard };

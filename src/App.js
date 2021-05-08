@@ -2,20 +2,27 @@ import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LoginPage from './components/Login';
 import Navbar from './components/Navbar';
+import { useState } from 'react';
 
 function App() {
-	return (
-		<Router>
-			<Switch>
-				<Route path='/login' component={LoginPage} />
+	const [isAuthed, setIsAuthed] = useState('loading');
 
-				<div>
-					<Navbar />
+	return isAuthed === 'loading' ? (
+		<div class='spinner-border' role='status'>
+			<span class='visually-hidden'>Loading...</span>
+		</div>
+	) : !isAuthed ? (
+		<LoginPage />
+	) : (
+		<div>
+			<Navbar />
+			<Router>
+				<Switch>
 					<Route path='/' exact component={() => <h1>Home page</h1>} />
 					<Route path='/profile' exact component={() => <h1>Profile page</h1>} />
-				</div>
-			</Switch>
-		</Router>
+				</Switch>
+			</Router>
+		</div>
 	);
 }
 
