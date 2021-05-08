@@ -1,14 +1,16 @@
 // This describes the score of something  per 1 unit of it
-const itemScoreBoard = {
-	car: {
-		score: -0.1,
-		unit: 'km'
+const itemScoreBoard = [
+	{
+		name: 'Drive car',
+		unit: 'km',
+		points: -0.1
 	},
-	recycledCan: {
-		score: 1,
-		unit: ''
+	{
+		name: 'Recycle can',
+		unit: '',
+		point: 1
 	}
-};
+];
 
 const countries = [
 	{ name: 'Afghanistan', code: 'AF' },
