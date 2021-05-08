@@ -1,16 +1,18 @@
 // This describes the score of something  per 1 unit of it
-const itemScoreBoard = [
-	{
-		name: 'Drive car',
-		unit: 'km',
-		points: -0.1
-	},
-	{
-		name: 'Recycle can',
-		unit: '',
-		point: 1
-	}
+const rawData = [
+	['Drive Car', 'km', -0.1],
+	['Recycle can', '', 1],
+	['Ride bike', 'km', 0.2],
+	['Ride bike', '', 0.2],
+	['Ride bike', 'km', 0.2],
+	['Throw out garbage', '', 1]
 ];
+
+const itemScoreBoard = rawData.map(el => ({
+	name: el[0],
+	unit: el[1],
+	points: el[2]
+}));
 
 const countries = [
 	{ name: 'Afghanistan', code: 'AF' },
