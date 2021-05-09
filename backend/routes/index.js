@@ -53,4 +53,32 @@ router.post('/new-entry', authUser, async (req,res) => {
 	}}})
 } )
 
+
+router.get("/my-activites", async function(req,res){
+
+    User.findById({_id: req.user.id }, function(err, results){
+		if(err){
+			res.sendStatus(404)
+		} else {
+			res.json(results.entries.map(el =>(
+				{...el, ...itemScoreBoard[el.activityId]}
+			)))
+
+		}
+	})
+
+
+
+
+})
+
+
+
+
+
+
+
+
+
+
 module.exports = router;
