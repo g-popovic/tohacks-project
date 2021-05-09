@@ -3,6 +3,7 @@ const router = require('express').Router();
 const User = require('../models/user.model.js');
 const { itemScoreBoard } = require('../utils/data.js');
 const { authUser } = require('../middleware/auth.js');
+const moment = require('moment');
 
 router.get('/test', (req, res) => {
 	res.send('bruh');
@@ -104,23 +105,42 @@ router.get('/statistic', async function (req, res) {
 	res.json(result);
 });
 
-// router.get('/country-stats')
-(async function () {
-	const startDate = new Date() - 30 * 24 * 60 * 60 * 1000;
-	const boundries = [];
-	for (let i = 0; i < 29; i++) {
-		boundries.push(startDate + i * 24 * 60 * 60 * 1000);
-	}
-	// const { country } = req.body;
-	const country = 'ME';
-	const result = await User.aggregate([
+router.get('/country-stats', async (req, res) => {
+	const { country } = req.body;
+	if (!country) return res.sendStatus(400);
+	const data = await User.aggregate([
 		{ $match: { country: country } },
 		{ $unwind: '$entries' },
 		{
-			$bucket: { groupBy: '$entries.createdAt', boundaries: boundries }
+			$project: {
+				date: { $dateToString: { format: '%Y-%m-%d', date: '$entries.createdAt' } },
+				co2: '$entries.co2'
+			}
+		},
+		{
+			$group: {
+				_id: '$date',
+				co2: { $sum: '$co2' }
+			}
 		}
 	]);
-	console.log(result);
-})();
+
+	const b4 = new Date() - 30 * 24 * 60 * 60 * 1000;
+	const dates = [];
+	for (let i = 0; i <= 30; i++) {
+		const current = new Date(b4 + i * 24 * 60 * 60 * 1000);
+
+		dates.push(current.setHours(0, 0, 0, 0));
+	}
+	const result = dates.map(el => {
+		const dateFromArr = data.find(dt => el === new Date(dt._id).setHours(0, 0, 0, 0));
+		return {
+			date: el,
+			co2: dateFromArr ? dateFromArr.co2 : 0
+		};
+	});
+
+	res.json(result);
+});
 
 module.exports = router;
