@@ -6,7 +6,7 @@
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	// transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 .navbar {
@@ -23,14 +23,16 @@
 	justify-content: center;
 	align-items: center;
 
-	background: linear-gradient(270deg, #12c2e9, #c471ed, #f64f59);
-	background-size: 600% 600%;
-	animation: AnimationName 10s ease infinite;
-
 	.login-panel {
 		background: white;
 		width: 25rem;
 	}
+}
+
+body {
+	background: linear-gradient(270deg, #12c2e9, #c471ed, #f64f59);
+	background-size: 600% 600%;
+	animation: AnimationName 10s ease infinite;
 }
 
 @keyframes AnimationName {
@@ -43,4 +45,12 @@
 	100% {
 		background-position: 0% 50%;
 	}
+}
+
+.page-container {
+	max-width: 72rem;
+	width: 95%;
+	height: calc(100vh - 3.5rem);
+	box-sizing: border-box;
+	background: white;
 }

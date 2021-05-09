@@ -49,6 +49,7 @@ export default function Login() {
 				)}
 				<input
 					value={password}
+					type='password'
 					onChange={e => setPassword(e.target.value)}
 					className='form-control my-3'
 					placeholder='Password'

@@ -2,23 +2,35 @@ import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LoginPage from './components/Login';
 import Navbar from './components/Navbar';
-import { useState } from 'react';
+import HomePage from './components/HomePage';
+import { useEffect, useState } from 'react';
+import axiosApp from './utils/axiosApp';
 
 function App() {
 	const [isAuthed, setIsAuthed] = useState('loading');
 
+	useEffect(() => {
+		(async function () {
+			const { data } = await axiosApp.get('/status');
+			console.log(data);
+			setIsAuthed(data.isAuthed);
+		})();
+	}, []);
+
 	return isAuthed === 'loading' ? (
-		<div class='spinner-borde0r total-center' role='status'>
-			<span class='visually-hidden'>Loading...</span>
+		<div className='total-center'>
+			<div class='spinner-border' role='status'>
+				<span class='visually-hidden'>Loading...</span>
+			</div>
 		</div>
 	) : !isAuthed ? (
 		<LoginPage />
 	) : (
 		<div>
-			<Navbar />
 			<Router>
+				<Navbar />
 				<Switch>
-					<Route path='/' exact component={() => <h1>Home page</h1>} />
+					<Route path='/' exact component={HomePage} />
 					<Route path='/profile' exact component={() => <h1>Profile page</h1>} />
 				</Switch>
 			</Router>
