@@ -57,24 +57,29 @@ export default function HomePage() {
 						/>
 						{selectedActivity !== undefined && itemScoreBoard[selectedActivity].unit ? (
 							<label className='input-group-text' for='inputGroupSelect02'>
-								KM
+								{itemScoreBoard[selectedActivity].unit}
 							</label>
 						) : null}
 					</div>
 
 					<div className='input-group mt-3'>
-						<label className='input-group-text col-4' for='inputGroupSelect02'>
-							CO2 / Unit:{' '}
-							<strong>
+						<label className='input-group-text col-4 d-flex' for='inputGroupSelect02'>
+							<span className='d-block' style={{ marginRight: '0.4rem' }}>
+								CO2 / Unit:
+							</span>
+							<strong className='d-block'>
 								{itemScoreBoard[selectedActivity] &&
-									itemScoreBoard[selectedActivity].co2}
+									itemScoreBoard[selectedActivity].co2 + 'kg'}
 							</strong>
 						</label>
-						<label className='input-group-text col-4' for='inputGroupSelect02'>
-							Total:{' '}
-							<strong>
+						<label className='input-group-text col-4 d-flex' for='inputGroupSelect02'>
+							<span style={{ marginRight: '0.4rem' }} className='d-block'>
+								Total:{' '}
+							</span>
+							<strong className='d-block'>
 								{itemScoreBoard[selectedActivity] &&
-									amount * itemScoreBoard[selectedActivity].co2}
+									(amount * itemScoreBoard[selectedActivity].co2).toFixed(2) +
+										'kg'}
 							</strong>
 						</label>
 						<button onClick={submitEntry} className='btn btn-outline-secondary col-4'>

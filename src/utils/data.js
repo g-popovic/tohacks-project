@@ -1,7 +1,7 @@
 // This describes the score of something  per 1 unit of it
 //  value: KG of CO2
 const rawData = [
-	['Drive Car', 'km', 0.4],
+	['Drive Car', 'km', 0.12],
 	['Recyle Paper', 'case (30 sheets)', -50]
 ];
 
