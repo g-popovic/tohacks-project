@@ -6,7 +6,7 @@ export default function Login() {
 	const [isRegister, setIsRegister] = useState(false);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [country, setCountry] = useState('');
+	const [country, setCountry] = useState();
 
 	async function login() {
 		try {
@@ -42,6 +42,7 @@ export default function Login() {
 						placeholder='Country'
 						className='form-select my-3'
 						onChange={e => setCountry(e.target.value)}>
+						<option selected>Country</option>
 						{countries.map(el => (
 							<option value={el.code}>{el.name}</option>
 						))}

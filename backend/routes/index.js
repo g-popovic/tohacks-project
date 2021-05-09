@@ -85,20 +85,17 @@ router.get('/my-activites', authUser, async (req, res) => {
 	res.json(result.entries.map(el => ({ ...el, ...itemScoreBoard[el.activityId] })));
 });
 
-
-router.get("/statistic", function(req,res){
-	User.aggregate([
-
-	{$group: {_id: "$totalPoints", totalPointsPerUser:{$sum: "$totalPointsPerUser"}}}
-
-	])
+router.get('/statistic', async function (req, res) {
+	const result = await User.aggregate([
+		{ $unwind: '$entries' },
+		{
+			$group: {
+				_id: '$country',
+				totalPoints: { $sum: '$entries.totalPoints' }
+			}
+		}
+	]);
+	res.json(result);
 });
-
-
-
-
-
-
-
 
 module.exports = router;
