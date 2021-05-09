@@ -1,61 +1,32 @@
 import React, { useState } from 'react';
 import Chart from 'react-apexcharts';
+import { countries } from '../utils/data';
 
 export default function BarChart({ data }) {
 	console.log(data);
 	const [series, setSeries] = useState([
 		{
-			name: 'Males',
-			data: [
-				0.4,
-				0.65,
-				0.76,
-				0.88,
-				1.5,
-				2.1,
-				2.9,
-				3.8,
-				3.9,
-				4.2,
-				4,
-				4.3,
-				4.1,
-				4.2,
-				4.5,
-				3.9,
-				3.5,
-				3
-			]
+			name: 'KG of CO2',
+			data: data.map(el => -Math.min(el.co2, 0))
 		},
 		{
-			name: 'Females',
-			data: [
-				-0.8,
-				-1.05,
-				-1.06,
-				-1.18,
-				-1.4,
-				-2.2,
-				-2.85,
-				-3.7,
-				-3.96,
-				-4.22,
-				-4.3,
-				-4.4,
-				-4.1,
-				-4,
-				-4.1,
-				-3.4,
-				-3.1,
-				-2.8
-			]
+			name: 'KG of CO2',
+			data: data.map(el => -Math.max(el.co2, 0))
 		}
 	]);
 	const [options, setOptions] = useState({
+		legend: {
+			show: false
+		},
 		chart: {
 			type: 'bar',
 			height: 440,
-			stacked: true
+			stacked: true,
+			dropShadow: {
+				enabledOnSeries: true,
+				color: '#000',
+				opacity: 0.0
+			}
 		},
 		colors: ['#008FFB', '#FF4560'],
 		plotOptions: {
@@ -80,11 +51,8 @@ export default function BarChart({ data }) {
 			}
 		},
 		yaxis: {
-			min: -5,
-			max: 5,
-			title: {
-				// text: 'Age',
-			}
+			min: -Math.max(...data.map(el => Math.abs(el.co2))),
+			max: Math.max(...data.map(el => Math.abs(el.co2)))
 		},
 		tooltip: {
 			shared: false,
@@ -95,50 +63,27 @@ export default function BarChart({ data }) {
 			},
 			y: {
 				formatter: function (val) {
-					return Math.abs(val) + '%';
+					return val + ' KG of CO2';
 				}
 			}
 		},
-		title: {
-			text: 'Mauritius population pyramid 2011'
-		},
 		xaxis: {
-			categories: [
-				'85+',
-				'80-84',
-				'75-79',
-				'70-74',
-				'65-69',
-				'60-64',
-				'55-59',
-				'50-54',
-				'45-49',
-				'40-44',
-				'35-39',
-				'30-34',
-				'25-29',
-				'20-24',
-				'15-19',
-				'10-14',
-				'5-9',
-				'0-4'
-			],
+			categories: data.map(el => countries.find(ctry => ctry.code === el._id).name),
 			title: {
-				text: 'Percent'
+				text: 'CO2 (kg)'
 			},
 			labels: {
 				formatter: function (val) {
-					return Math.abs(Math.round(val)) + '%';
+					return val + ' CO2 (kg)';
 				}
 			}
 		}
 	});
 
 	return (
-		<div className='page-container mx-auto p-5 shadow'>
-			<div>
-				<Chart options={options} series={series} type='bar' height={600} />
-			</div>
+		<div>
+			<h2>Ranking by country</h2>
+			<Chart options={options} series={series} type='bar' height={600} />
 		</div>
 	);
 }

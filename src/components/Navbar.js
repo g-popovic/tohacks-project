@@ -36,9 +36,9 @@ export default function Navbar(props) {
 						</Link>
 					</li>
 					<li className='nav-item'>
-						<a className='nav-link' onClick={logout}>
+						<p className='nav-link cursor-pointer mb-0 ' onClick={logout}>
 							Logout
-						</a>
+						</p>
 					</li>
 				</ul>
 			</div>

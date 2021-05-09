@@ -10,7 +10,7 @@ export default function HomePage() {
 
 	async function submitEntry() {
 		try {
-			await axiosApp.post('/new-entry', { activityId: selectedActivity, units: amount });
+			await axiosApp.post('/new-entry', { activityId: selectedActivity, amount });
 			setHistory('loading');
 			await updateEntries();
 			setAmount('');
@@ -34,7 +34,7 @@ export default function HomePage() {
 		<div className='page-container mx-auto p-5 shadow'>
 			<div className='row mb-3'>
 				<div className='col-6'>
-					<h2 className='mb-4'>Add entry</h2>
+					<h2 className='mb-4'>Add Entry</h2>
 					<div className='input-group'>
 						<select
 							value={selectedActivity}
@@ -64,26 +64,28 @@ export default function HomePage() {
 
 					<div className='input-group mt-3'>
 						<label className='input-group-text col-4' for='inputGroupSelect02'>
-							Points / Unit:{' '}
+							CO2 / Unit:{' '}
 							<strong>
 								{itemScoreBoard[selectedActivity] &&
-									itemScoreBoard[selectedActivity].points}
+									itemScoreBoard[selectedActivity].co2}
 							</strong>
 						</label>
 						<label className='input-group-text col-4' for='inputGroupSelect02'>
 							Total:{' '}
 							<strong>
 								{itemScoreBoard[selectedActivity] &&
-									amount * itemScoreBoard[selectedActivity].points}
+									amount * itemScoreBoard[selectedActivity].co2}
 							</strong>
 						</label>
 						<button onClick={submitEntry} className='btn btn-outline-secondary col-4'>
 							Add
 						</button>
 					</div>
-				</div>
-				<div className='col-6'>
-					<h2 className='mb-4'>My History</h2>
+
+					{/* HISTORY */}
+
+					<hr className='hr' />
+					<h2 className='mb-4 mt-0'>My Activity</h2>
 					{history === 'loading' ? (
 						<div className='spinner-border d-block mx-auto mt-5' role='status'>
 							<span className='visually-hidden'>Loading...</span>
@@ -94,17 +96,18 @@ export default function HomePage() {
 								<span className='d-flex align-items-center'>
 									<strong>{el.name}</strong>
 									<span className='mx-2 mr-0'>
-										x {el.units}
+										x {el.amount}
 										{el.unit}
 									</span>
 								</span>
 
 								<span>{moment(el.createdAt).format('HH:MM - DD. MMM')}</span>
-								<strong>{el.totalPoints}</strong>
+								<strong>CO2 (kg): {el.co2}</strong>
 							</div>
 						))
 					)}
 				</div>
+				<div className='col-6'></div>
 			</div>
 		</div>
 	);

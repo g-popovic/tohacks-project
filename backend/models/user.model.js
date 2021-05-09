@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
+// CO2 is measured in KILOGRAMS
 const entrySchema = new mongoose.Schema(
 	{
 		activityId: { type: Number, required: true },
-		totalPoints: { type: Number, required: true },
-		units: { type: Number, required: true }
+		amount: { type: Number, required: true },
+		co2: { type: Number, required: true }
 	},
 	{ _id: false, timestamps: { updatedAt: false } }
-    
 );
 
 const userSchema = new mongoose.Schema({

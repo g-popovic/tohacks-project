@@ -45,7 +45,7 @@ router.post('/login', async function (req, res) {
 });
 
 router.post('/new-entry', authUser, async (req, res) => {
-	const { activityId, units } = req.body;
+	const { activityId, amount } = req.body;
 	const activity = itemScoreBoard[activityId];
 	await User.updateOne(
 		{ _id: req.user.id },
@@ -53,7 +53,7 @@ router.post('/new-entry', authUser, async (req, res) => {
 			$push: {
 				entries: {
 					activityId,
-					totalPoints: units * activity.points,
+					co2: amount * activity.co2,
 					units
 				}
 			}
@@ -72,7 +72,7 @@ router.get('/status', (req, res) => {
 
 router.post('/logout', (req, res) => {
 	req.session.user = null;
-	res.sendStauts(200);
+	res.sendStatus(200);
 });
 
 router.get('/my-activites', authUser, async (req, res) => {
@@ -91,7 +91,12 @@ router.get('/statistic', async function (req, res) {
 		{
 			$group: {
 				_id: '$country',
-				totalPoints: { $sum: '$entries.totalPoints' }
+				co2: { $sum: '$entries.co2' }
+			}
+		},
+		{
+			$sort: {
+				co2: 1
 			}
 		}
 	]);
