@@ -1,14 +1,22 @@
 // This describes the score of something  per 1 unit of it
 //  value: KG of CO2
 const rawData = [
-	['Drive Car', 'km', 0.12],
-	['Recyle Paper', 'case (30 sheets)', -50]
+	['Drive Car', 'km', 0.120],
+	['Buy Paper', 'sheet', 0.005]
+	["Recycled Plastic Bottle", "0.5L", -0.08 ]
+	["Recycled Glass", "kg", 0.67]
+	["Plant a Tree", "kg/per year", -20]
+	["Using Elecrticity", "1kWh", 0.45]
+	["Phone Call", "1 minute", 0.057]
+	["Using Air Conditioner", "1 hour", 0.65]
+	["Using Plastic Bag", "1 bag", 0.033]
+	[]
 ];
 
 const itemScoreBoard = rawData.map(el => ({
 	name: el[0],
 	unit: el[1],
-	co2PerUnit: el[2]
+	co2: el[2]
 }));
 
 const countries = [
