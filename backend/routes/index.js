@@ -35,7 +35,7 @@ router.post('/login', async function (req, res) {
 
 			const isCorrect = await bcrypt.compare(password, foundUser.password);
 			if (isCorrect) {
-				req.session.user.id = foundUser.id;
+				req.session.user = { id: foundUser._id };
 				res.sendStatus(200);
 			} else {
 				res.sendStatus(404);
@@ -47,18 +47,19 @@ router.post('/login', async function (req, res) {
 router.post('/new-entry', authUser, async (req, res) => {
 	const { activityId, units } = req.body;
 	const activity = itemScoreBoard[activityId];
-	User.updateOne(
+	await User.updateOne(
 		{ _id: req.user.id },
 		{
 			$push: {
 				entries: {
 					activityId,
-					totalPoints: units * points,
+					totalPoints: units * activity.points,
 					units
 				}
 			}
 		}
 	);
+	res.sendStatus(200);
 });
 
 router.get('/status', (req, res) => {

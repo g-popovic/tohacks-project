@@ -27,11 +27,11 @@ export default function Navbar(props) {
 				<ul className='navbar-nav'>
 					<li className='nav-item'>
 						<Link className='nav-link' to='/'>
-							Add Record
+							Home
 						</Link>
 					</li>
 					<li className='nav-item'>
-						<Link className='nav-link' to='/'>
+						<Link className='nav-link' to='/stats'>
 							Stats
 						</Link>
 					</li>

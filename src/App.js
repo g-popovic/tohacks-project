@@ -2,6 +2,7 @@ import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LoginPage from './components/Login';
 import Navbar from './components/Navbar';
+import HomePage from './components/HomePage';
 import { useEffect, useState } from 'react';
 import axiosApp from './utils/axiosApp';
 
@@ -29,7 +30,7 @@ function App() {
 			<Router>
 				<Navbar />
 				<Switch>
-					<Route path='/' exact component={() => <h1>Home page</h1>} />
+					<Route path='/' exact component={HomePage} />
 					<Route path='/profile' exact component={() => <h1>Profile page</h1>} />
 				</Switch>
 			</Router>
