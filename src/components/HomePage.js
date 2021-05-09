@@ -65,7 +65,7 @@ export default function HomePage() {
 					</div>
 
 					<div className='input-group mt-3'>
-						<label className='input-group-text col-4 d-flex' for='inputGroupSelect02'>
+						<label className='input-group-text col-5 d-flex' for='inputGroupSelect02'>
 							<span className='d-block' style={{ marginRight: '0.4rem' }}>
 								CO2 / Unit:
 							</span>
@@ -74,7 +74,7 @@ export default function HomePage() {
 									itemScoreBoard[selectedActivity].co2PerUnit + 'kg'}
 							</strong>
 						</label>
-						<label className='input-group-text col-4 d-flex' for='inputGroupSelect02'>
+						<label className='input-group-text col-5 d-flex' for='inputGroupSelect02'>
 							<span style={{ marginRight: '0.4rem' }} className='d-block'>
 								Total:{' '}
 							</span>
@@ -85,7 +85,7 @@ export default function HomePage() {
 									) + 'kg'}
 							</strong>
 						</label>
-						<button onClick={submitEntry} className='btn btn-outline-secondary col-4'>
+						<button onClick={submitEntry} className='btn btn-outline-secondary col-2'>
 							Add
 						</button>
 					</div>
@@ -117,7 +117,7 @@ export default function HomePage() {
 				</div>
 				<div className='col-5 mb-4'>
 					<h2 className='mb-4 text-center'>Your Impact</h2>
-					<h4 className='text-center text-muted fw-normal'>Recorded CO2</h4>
+					<h5 className='text-center text-muted fw-normal'>Recorded CO2</h5>
 					{history === 'loading' ? (
 						<div class='spinner-border d-flex mx-auto mt-5' role='status'>
 							<span class='visually-hidden'>Loading...</span>
@@ -125,7 +125,6 @@ export default function HomePage() {
 					) : (
 						<Overview history={history} />
 					)}
-					<h4 className='text-center mt-4 text-muted fw-normal'>Country Average</h4>
 				</div>
 			</div>
 		</div>
@@ -141,7 +140,10 @@ function Overview({ history }) {
 				<div className='text-center'>
 					<p className='mb-0 text-muted'>Produced</p>
 					<h5 className='red'>
-						{history.reduce((total, el) => (total += Math.max(0, el.co2)), 0)}kg
+						{history
+							.reduce((total, el) => (total += Math.max(0, el.co2)), 0)
+							.toFixed(2)}
+						kg
 					</h5>
 				</div>
 				<div className='text-center'>
@@ -151,7 +153,10 @@ function Overview({ history }) {
 				<div className='text-center'>
 					<p className='mb-0 text-muted'>Reduced</p>
 					<h5 className='blue'>
-						{history.reduce((total, el) => (total += Math.min(0, el.co2)), 0)}kg
+						{history
+							.reduce((total, el) => (total += Math.min(0, el.co2)), 0)
+							.toFixed(2)}
+						kg
 					</h5>
 				</div>
 			</div>

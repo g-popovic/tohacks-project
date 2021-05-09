@@ -6,12 +6,12 @@ export default function BarChart({ data }) {
 	console.log(data);
 	const [series, setSeries] = useState([
 		{
-			name: 'KG of CO2',
-			data: data.map(el => -Math.min(el.co2, 0))
+			name: 'kg of CO2',
+			data: data.map(el => Math.min(el.co2.toFixed(2), 0))
 		},
 		{
-			name: 'KG of CO2',
-			data: data.map(el => -Math.max(el.co2, 0))
+			name: 'kg of CO2',
+			data: data.map(el => Math.max(el.co2.toFixed(2), 0))
 		}
 	]);
 	const [options, setOptions] = useState({
@@ -63,18 +63,18 @@ export default function BarChart({ data }) {
 			},
 			y: {
 				formatter: function (val) {
-					return val + ' KG of CO2';
+					return val + ' kg CO2';
 				}
 			}
 		},
 		xaxis: {
 			categories: data.map(el => countries.find(ctry => ctry.code === el._id).name),
 			title: {
-				text: 'CO2 (kg)'
+				text: 'CO2 in KG'
 			},
 			labels: {
 				formatter: function (val) {
-					return val + ' CO2 (kg)';
+					return val.toFixed(2) + 'kg CO2';
 				}
 			}
 		}
@@ -82,7 +82,7 @@ export default function BarChart({ data }) {
 
 	return (
 		<div>
-			<h2>Ranking by country</h2>
+			<h2>Total carbon emission per country</h2>
 			<Chart options={options} series={series} type='bar' height={600} />
 		</div>
 	);

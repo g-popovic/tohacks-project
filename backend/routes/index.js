@@ -104,4 +104,23 @@ router.get('/statistic', async function (req, res) {
 	res.json(result);
 });
 
+// router.get('/country-stats')
+(async function () {
+	const startDate = new Date() - 30 * 24 * 60 * 60 * 1000;
+	const boundries = [];
+	for (let i = 0; i < 29; i++) {
+		boundries.push(startDate + i * 24 * 60 * 60 * 1000);
+	}
+	// const { country } = req.body;
+	const country = 'ME';
+	const result = await User.aggregate([
+		{ $match: { country: country } },
+		{ $unwind: '$entries' },
+		{
+			$bucket: { groupBy: '$entries.createdAt', boundaries: boundries }
+		}
+	]);
+	console.log(result);
+})();
+
 module.exports = router;
