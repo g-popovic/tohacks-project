@@ -59,3 +59,34 @@ body {
 hr {
 	margin: 2.3rem 0 1.6rem;
 }
+
+.overview-container {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+
+	& > div:nth-child(2) {
+		font-size: 150%;
+
+		& > *:nth-child(2) {
+			margin-top: -0.15rem;
+		}
+	}
+}
+
+.red {
+	color: #ff4560;
+}
+
+.blue {
+	color: #008ffb;
+}
+
+.history-item {
+	overflow: hidden;
+
+	* {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+}

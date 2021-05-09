@@ -34,8 +34,8 @@ export default function HomePage() {
 
 	return (
 		<div className='page-container mx-auto p-5 shadow'>
-			<div className='row mb-3'>
-				<div className='col-6'>
+			<div className='row mb-3 justify-content-around'>
+				<div className='col-5'>
 					<h2 className='mb-4'>Add Entry</h2>
 					<div className='input-group'>
 						<select
@@ -100,7 +100,7 @@ export default function HomePage() {
 						</div>
 					) : (
 						history.map(el => (
-							<div className='my-3 rounded border px-3 py-2 d-flex justify-content-between'>
+							<div className='history-item my-3 rounded border px-3 py-2 d-flex justify-content-between'>
 								<span className='d-flex align-items-center'>
 									<strong>{el.name}</strong>
 									<span className='mx-2 mr-0'>
@@ -115,8 +115,46 @@ export default function HomePage() {
 						))
 					)}
 				</div>
-				<div className='col-6'></div>
+				<div className='col-5 mb-4'>
+					<h2 className='mb-4 text-center'>Your Impact</h2>
+					<h4 className='text-center text-muted fw-normal'>Recorded CO2</h4>
+					{history === 'loading' ? (
+						<div class='spinner-border d-flex mx-auto mt-5' role='status'>
+							<span class='visually-hidden'>Loading...</span>
+						</div>
+					) : (
+						<Overview history={history} />
+					)}
+					<h4 className='text-center mt-4 text-muted fw-normal'>Country Average</h4>
+				</div>
 			</div>
 		</div>
+	);
+}
+
+function Overview({ history }) {
+	const total = history.reduce((total, el) => (total += el.co2), 0).toFixed(2);
+
+	return (
+		<>
+			<div className='overview-container'>
+				<div className='text-center'>
+					<p className='mb-0 text-muted'>Produced</p>
+					<h5 className='red'>
+						{history.reduce((total, el) => (total += Math.max(0, el.co2)), 0)}kg
+					</h5>
+				</div>
+				<div className='text-center'>
+					<p className='mb-0 text-muted'>Total</p>
+					<h2 className={total > 0 ? 'red' : 'blue'}>{total}kg</h2>
+				</div>
+				<div className='text-center'>
+					<p className='mb-0 text-muted'>Reduced</p>
+					<h5 className='blue'>
+						{history.reduce((total, el) => (total += Math.min(0, el.co2)), 0)}kg
+					</h5>
+				</div>
+			</div>
+		</>
 	);
 }
