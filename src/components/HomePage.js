@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosApp from '../utils/axiosApp';
 import { itemScoreBoard } from '../utils/data';
+import moment from 'moment';
 
 export default function HomePage() {
 	const [selectedActivity, setSelectedActivity] = useState();
@@ -10,7 +11,8 @@ export default function HomePage() {
 	async function submitEntry() {
 		try {
 			await axiosApp.post('/new-entry', { activityId: selectedActivity, units: amount });
-			alert('Success');
+			setHistory('loading');
+			await updateEntries();
 			setAmount('');
 			setSelectedActivity();
 		} catch (err) {
@@ -20,12 +22,13 @@ export default function HomePage() {
 	}
 
 	useEffect(() => {
-		(async function () {
-			const { data } = await axiosApp.get('/my-activites');
-			console.log('asdasdasdasd');
-			console.log(data);
-		})();
+		updateEntries();
 	}, []);
+
+	async function updateEntries() {
+		const { data } = await axiosApp.get('/my-activites');
+		setHistory(data);
+	}
 
 	return (
 		<div className='page-container mx-auto p-5 shadow'>
@@ -96,7 +99,7 @@ export default function HomePage() {
 									</span>
 								</span>
 
-								<span>15:32 - 13. Apr. '21</span>
+								<span>{moment(el.createdAt).format('HH:MM - DD. MMM')}</span>
 								<strong>{el.totalPoints}</strong>
 							</div>
 						))
