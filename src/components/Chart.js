@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Chart from 'react-apexcharts';
 
-export default function BarChart() {
+export default function BarChart({ data }) {
+	console.log(data);
 	const [series, setSeries] = useState([
 		{
 			name: 'Males',
