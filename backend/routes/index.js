@@ -75,32 +75,20 @@ router.post('/logout', (req, res) => {
 	res.sendStauts(200);
 });
 
+router.get('/my-activites', authUser, async (req, res) => {
+	const result = await User.findById(req.user.id);
 
-router.get("/my-activites", async function(req,res){
+	if (!result) return res.sendStatus(404);
 
-    User.findById({_id: req.user.id }, function(err, results){
-		if(err){
-			res.sendStatus(404)
-		} else {
-			res.json(results.entries.map(el =>(
-				{...el, ...itemScoreBoard[el.activityId]}
-			)))
+	console.log({ entries: result.entries, activity: itemScoreBoard[0] });
 
-		}
-	})
+	res.json(result.entries.map(el => ({ ...el, ...itemScoreBoard[el.activityId] })));
+});
 
+(async function () {
+	const result = await User.findById('60970c3fd14b780bf4a415e8');
 
-
-
-})
-
-
-
-
-
-
-
-
-
+	console.log(result.entries.map(el => ({ bob: 'asd' })));
+})();
 
 module.exports = router;
