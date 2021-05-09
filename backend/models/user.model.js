@@ -7,6 +7,7 @@ const entrySchema = new mongoose.Schema(
 		units: { type: Number, required: true }
 	},
 	{ _id: false, timestamps: { updatedAt: false } }
+    
 );
 
 const userSchema = new mongoose.Schema({
