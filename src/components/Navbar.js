@@ -11,7 +11,7 @@ export default function Navbar(props) {
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-dark px-5 d-flex justify-content-between'>
 			<a className='navbar-brand' href='/'>
-				Title
+				CarbonTracker
 			</a>
 			<button
 				className='navbar-toggler'

@@ -2,13 +2,54 @@ import React, { useEffect, useState } from 'react';
 import axiosApp from '../utils/axiosApp';
 import { itemScoreBoard } from '../utils/data';
 import moment from 'moment';
+import CountryHistoryChart from './CountryHistoryChart';
+
+// The only reason this exists is because the actual histroy is very empty and the chart doesn't look like much of a chart
+// TLDR this is here for visual reasons (the endpoint itself works perfectly)
+const placeholderHistoryData = [];
+const rawValues = [
+	2,
+	5.2,
+	3.5,
+	2.1,
+	7.2,
+	3.3,
+	0.8,
+	-0.2,
+	-1.5,
+	-2.2,
+	-1.2,
+	-1.6,
+	-2.2,
+	-3.5,
+	-4.1,
+	-3.9,
+	-4.3,
+	-3.9,
+	-3.1,
+	-2.6,
+	-2.9,
+	-2.1,
+	-1.1,
+	0.6,
+	0.8,
+	1.4,
+	0.2,
+	-1.3,
+	0.4,
+	1.2
+];
+const monthAgo = new Date() - 30 * 24 * 60 * 60 * 1000;
+for (let i = 0; i <= 30; i++) {
+	placeholderHistoryData.push({ date: monthAgo + i * 24 * 60 * 60 * 1000, co2: rawValues[i] });
+}
 
 export default function HomePage() {
 	const [selectedActivity, setSelectedActivity] = useState();
 	const [amount, setAmount] = useState('');
 	const [history, setHistory] = useState('loading');
 
-	console.log(history);
+	console.log(placeholderHistoryData);
 
 	async function submitEntry() {
 		try {
@@ -16,7 +57,6 @@ export default function HomePage() {
 			setHistory('loading');
 			await updateEntries();
 			setAmount('');
-			setSelectedActivity();
 		} catch (err) {
 			console.error(err);
 			alert('Unexpected error');
@@ -125,6 +165,8 @@ export default function HomePage() {
 					) : (
 						<Overview history={history} />
 					)}
+					<h5 className='text-center text-muted fw-normal my-4'>History</h5>
+					<CountryHistoryChart data={placeholderHistoryData} />
 				</div>
 			</div>
 		</div>

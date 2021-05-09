@@ -29,7 +29,10 @@ export default function Login() {
 	return (
 		<div className='login-container'>
 			<div className='login-panel rounded p-4 pb-3 shadow'>
-				<h1 className='text-center mb-3'>{isRegister ? 'Register' : 'Login'}</h1>
+				<h1 className='text-center'>CarbonTracker</h1>
+				<h5 className='text-center text-muted mb-5 fw-normal'>
+					{isRegister ? 'Register' : 'Login'}
+				</h5>
 				<input
 					value={email}
 					onChange={e => setEmail(e.target.value)}
