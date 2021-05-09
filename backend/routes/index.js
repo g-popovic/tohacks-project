@@ -86,5 +86,19 @@ router.get('/my-activites', authUser, async (req, res) => {
 });
 
 
+router.get("/statistic", function(req,res){
+	User.aggregate([
+
+	{$group: {_id: "$totalPoints", totalPointsPerUser:{$sum: "$totalPointsPerUser"}}}
+
+	])
+});
+
+
+
+
+
+
+
 
 module.exports = router;
