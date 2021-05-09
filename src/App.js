@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import { useEffect, useState } from 'react';
 import axiosApp from './utils/axiosApp';
+import StatsPage from './components/StatsPage';
 
 function App() {
 	const [isAuthed, setIsAuthed] = useState('loading');
@@ -31,7 +32,7 @@ function App() {
 				<Navbar />
 				<Switch>
 					<Route path='/' exact component={HomePage} />
-					<Route path='/profile' exact component={() => <h1>Profile page</h1>} />
+					<Route path='/stats' exact component={StatsPage} />
 				</Switch>
 			</Router>
 		</div>

@@ -50,7 +50,8 @@ body {
 .page-container {
 	max-width: 72rem;
 	width: 95%;
-	height: calc(100vh - 3.5rem);
+	min-height: calc(100vh - 3.5rem);
+	height: 100%;
 	box-sizing: border-box;
 	background: white;
 }
