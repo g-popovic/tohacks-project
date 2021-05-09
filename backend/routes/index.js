@@ -47,14 +47,15 @@ router.post('/login', async function (req, res) {
 router.post('/new-entry', authUser, async (req, res) => {
 	const { activityId, amount } = req.body;
 	const activity = itemScoreBoard[activityId];
+	console.log({ activity, amount });
 	await User.updateOne(
 		{ _id: req.user.id },
 		{
 			$push: {
 				entries: {
 					activityId,
-					co2: amount * activity.co2,
-					units
+					co2: amount * activity.co2PerUnit,
+					amount
 				}
 			}
 		}

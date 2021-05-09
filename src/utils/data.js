@@ -8,7 +8,7 @@ const rawData = [
 const itemScoreBoard = rawData.map(el => ({
 	name: el[0],
 	unit: el[1],
-	co2: el[2]
+	co2PerUnit: el[2]
 }));
 
 const countries = [

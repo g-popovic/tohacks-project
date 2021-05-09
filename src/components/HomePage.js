@@ -8,6 +8,8 @@ export default function HomePage() {
 	const [amount, setAmount] = useState('');
 	const [history, setHistory] = useState('loading');
 
+	console.log(history);
+
 	async function submitEntry() {
 		try {
 			await axiosApp.post('/new-entry', { activityId: selectedActivity, amount });
@@ -69,7 +71,7 @@ export default function HomePage() {
 							</span>
 							<strong className='d-block'>
 								{itemScoreBoard[selectedActivity] &&
-									itemScoreBoard[selectedActivity].co2 + 'kg'}
+									itemScoreBoard[selectedActivity].co2PerUnit + 'kg'}
 							</strong>
 						</label>
 						<label className='input-group-text col-4 d-flex' for='inputGroupSelect02'>
@@ -78,8 +80,9 @@ export default function HomePage() {
 							</span>
 							<strong className='d-block'>
 								{itemScoreBoard[selectedActivity] &&
-									(amount * itemScoreBoard[selectedActivity].co2).toFixed(2) +
-										'kg'}
+									(amount * itemScoreBoard[selectedActivity].co2PerUnit).toFixed(
+										2
+									) + 'kg'}
 							</strong>
 						</label>
 						<button onClick={submitEntry} className='btn btn-outline-secondary col-4'>
@@ -107,7 +110,7 @@ export default function HomePage() {
 								</span>
 
 								<span>{moment(el.createdAt).format('HH:MM - DD. MMM')}</span>
-								<strong>CO2 (kg): {el.co2}</strong>
+								<strong>CO2: {el.co2}kg</strong>
 							</div>
 						))
 					)}
